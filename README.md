@@ -1,4 +1,9 @@
-Script for automate the installation of:
+GPD-WIN (1) automation.
+
+Requisites:
+Installed any ubuntu flavor on the device.
+
+This script is for automate the installation of:
 
 - ssh-server
 - Google Chrome
