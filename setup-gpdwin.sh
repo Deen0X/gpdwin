@@ -49,7 +49,7 @@ sudo apt install -y git dialog
 cd $HOME_DIR
 git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git
 cd RetroPie-Setup
-sudo ./retropie_setup.sh
+__debug=1 sudo ./retropie_setup.sh
 
 echo ""
 read -p "🕹️ ¿Quieres que RetroPie se inicie automáticamente al arrancar? (s/n): " AUTO_RETRO
