@@ -4,27 +4,7 @@
 USER_NAME=$(whoami)
 HOME_DIR=$(eval echo ~$USER_NAME)
 
-echo "🔧 [1/9] Instalando y habilitando servidor SSH..."
-sudo apt update
-sudo apt install -y openssh-server
-sudo systemctl enable ssh
-sudo systemctl start ssh
-
-echo "🔽 [2/9] Descargando e instalando Google Chrome..."
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O chrome.deb
-sudo apt install -y ./chrome.deb
-rm chrome.deb
-echo "✅ Google Chrome instalado correctamente."
-
-echo "🌐 [3/9] Instalando Chrome Remote Desktop..."
-wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb -O /tmp/chrome-remote-desktop.deb
-sudo apt install -y /tmp/chrome-remote-desktop.deb
-rm /tmp/chrome-remote-desktop.deb
-
-echo "🖥️ [4/9] Instalando gestor de pantallas (Arandr)..."
-sudo apt install -y arandr
-
-echo "🧩 [5/9] Creando script de gestión automática de pantallas..."
+echo "🧩 [0] Creando script de gestión automática de pantallas..."
 cat << 'EOF' > $HOME_DIR/monitor-watch.sh
 #!/bin/bash
 export DISPLAY=:0
@@ -36,15 +16,35 @@ else
 fi
 EOF
 
+echo "🔧 [1] Instalando y habilitando servidor SSH..."
+sudo apt update
+sudo apt install -y openssh-server
+sudo systemctl enable ssh
+sudo systemctl start ssh
+
+echo "🔽 [2] Descargando e instalando Google Chrome..."
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O chrome.deb
+sudo apt install -y ./chrome.deb
+rm chrome.deb
+echo "✅ Google Chrome instalado correctamente."
+
+echo "🌐 [3] Instalando Chrome Remote Desktop..."
+wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb -O /tmp/chrome-remote-desktop.deb
+sudo apt install -y /tmp/chrome-remote-desktop.deb
+rm /tmp/chrome-remote-desktop.deb
+
+echo "🖥️ [4] Instalando gestor de pantallas (Arandr)..."
+sudo apt install -y arandr
+
 chmod +x $HOME_DIR/monitor-watch.sh
 
-echo "🔁 [6/9] Automatizando gestión de pantallas con cron..."
+echo "🔁 [5] Automatizando gestión de pantallas con cron..."
 (crontab -l 2>/dev/null; echo "* * * * * $HOME_DIR/monitor-watch.sh") | crontab -
 
-echo "🔄 [7/9] Creando alias para rotar pantalla integrada..."
+echo "🔄 [6] Creando alias para rotar pantalla integrada..."
 echo "alias rotate='xrandr --output DSI-1 --rotate right'" >> $HOME_DIR/.bashrc
 
-echo "🎮 [8/9] Instalando RetroPie..."
+echo "🎮 [7] Instalando RetroPie..."
 sudo apt install -y git dialog
 cd $HOME_DIR
 git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git
